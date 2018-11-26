@@ -14,8 +14,11 @@ You can follow the Test your installation part in the offcial link to test if yo
 
 #### ii. After the installation and to build my solution
 Step 1: create a new folder under the `$HOME/go/src` directory
+
 Step 2: Do the `git init`, `git pull` ... using this GitHub repo
+
 Step 3: Once you have main.go, rest.go, maze.go in your folder, `go build *.go` will give you an executable named `main`. 
+
 Step 4: To run the executable, `./main`
 	Step 5: You should see a prompt on your command-line tool "Mission starts." 
 
