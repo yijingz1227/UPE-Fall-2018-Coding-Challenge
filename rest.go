@@ -12,6 +12,8 @@ const (
 	POST    = "session"
 	GAME    = "game?"
 	TOKEN   = "token="
+	EXPIRED = "EXPIRED"
+	NONE = "NONE"
 )
 
 type GameState struct {
@@ -30,7 +32,9 @@ type Result struct {
 	Result string `json:"result"`
 }
 
-func getToken() string {
+var tokenCache string
+
+func getToken() {
 
 	body := url.Values{}
 	body.Set("uid", UID)
@@ -42,22 +46,20 @@ func getToken() string {
 
 	defer resp.Body.Close()
 
-	var tokenString string
-
 	if resp.StatusCode == http.StatusOK {
 		token := Token{}
 		err := json.NewDecoder(resp.Body).Decode(&token)
 		if err != nil {
 			panic(err)
 		}
-		tokenString = token.Token
+		tokenCache = token.Token
 	}
-	return tokenString
+
 }
 
 func getGameState() GameState {
 
-	resp, err := http.Get(BASEAPI + GAME + TOKEN + getToken())
+	resp, err := http.Get(BASEAPI + GAME + TOKEN + tokenCache)
 
 	if err != nil {
 		panic(err)
@@ -73,6 +75,12 @@ func getGameState() GameState {
 			panic(err)
 		}
 	}
+
+	if state.Status == NONE {
+		getToken()
+		return getGameState()
+	}
+
 	return state
 }
 
@@ -81,7 +89,8 @@ func move(dir string) string {
 	body := url.Values{}
 	body.Set("action", dir)
 
-	resp, err := http.PostForm(BASEAPI+GAME+TOKEN+getToken(), body)
+	resp, err := http.PostForm(BASEAPI+GAME+TOKEN+tokenCache, body)
+
 	if err != nil {
 		panic(err)
 	}
@@ -101,6 +110,11 @@ func move(dir string) string {
 			panic(err)
 		}
 		res = result.Result
+	}
+
+	if res == EXPIRED {
+		getToken()
+		return move(dir)
 	}
 
 	return res

@@ -30,52 +30,60 @@ func solveMaze() {
 func dfs(row, col int, visited [][]bool) int {
 	if inBound(row-1, col, visited) && !visited[row-1][col] {
 		res := move(UP)
+		if res == END {
+			return 1
+		}
 		if validMove(res) {
 			visited[row-1][col] = true
 			if dfs(row-1, col, visited) == 1 {
 				return 1
 			}
 			move(DOWN)
-			visited[row-1][col] = false
 		}
 
 	}
 
 	if inBound(row+1, col, visited) && !visited[row+1][col] {
 		res := move(DOWN)
+		if res == END {
+			return 1
+		}
 		if validMove(res) {
 			visited[row+1][col] = true
 			if dfs(row+1, col, visited) == 1 {
 				return 1
 			}
 			move(UP)
-			visited[row+1][col] = false
 		}
 
 	}
 
 	if inBound(row, col-1, visited) && !visited[row][col-1] {
 		res := move(LEFT)
+		if res == END {
+			return 1
+		}
 		if validMove(res) {
 			visited[row][col-1] = true
 			if dfs(row, col-1, visited) == 1 {
 				return 1
 			}
 			move(RIGHT)
-			visited[row][col-1] = false
 		}
 
 	}
 
 	if inBound(row, col+1, visited) && !visited[row][col+1] {
 		res := move(RIGHT)
+		if res == END {
+			return 1
+		}
 		if validMove(res) {
 			visited[row][col+1] = true
 			if dfs(row, col+1, visited) == 1 {
 				return 1
 			}
 			move(LEFT)
-			visited[row][col+1] = false
 		}
 	}
 
