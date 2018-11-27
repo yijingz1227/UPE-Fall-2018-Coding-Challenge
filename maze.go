@@ -75,6 +75,7 @@ func trySolveMaze() bool {
 func dfs(row, col int, visited [][]bool) int {
 	if inBound(row-1, col, visited) && !visited[row-1][col] {
 		res := move(UP)
+		visited[row-1][col] = true
 
 		if res == END {
 			return REACHED
@@ -83,7 +84,6 @@ func dfs(row, col int, visited [][]bool) int {
 		}
 
 		if validMove(res) {
-			visited[row-1][col] = true
 			echo := dfs(row-1, col, visited)
 			if echo == REACHED || echo == TIMEOUT {
 				return echo
@@ -95,6 +95,7 @@ func dfs(row, col int, visited [][]bool) int {
 
 	if inBound(row+1, col, visited) && !visited[row+1][col] {
 		res := move(DOWN)
+		visited[row+1][col] = true
 
 		if res == END {
 			return REACHED
@@ -103,7 +104,6 @@ func dfs(row, col int, visited [][]bool) int {
 		}
 
 		if validMove(res) {
-			visited[row+1][col] = true
 			echo := dfs(row+1, col, visited)
 			if echo == REACHED || echo == TIMEOUT {
 				return echo
@@ -115,6 +115,7 @@ func dfs(row, col int, visited [][]bool) int {
 
 	if inBound(row, col-1, visited) && !visited[row][col-1] {
 		res := move(LEFT)
+		visited[row][col-1] = true
 
 		if res == END {
 			return REACHED
@@ -123,7 +124,6 @@ func dfs(row, col int, visited [][]bool) int {
 		}
 
 		if validMove(res) {
-			visited[row][col-1] = true
 			echo := dfs(row, col-1, visited)
 			if echo == REACHED || echo == TIMEOUT {
 				return echo
@@ -135,6 +135,7 @@ func dfs(row, col int, visited [][]bool) int {
 
 	if inBound(row, col+1, visited) && !visited[row][col+1] {
 		res := move(RIGHT)
+		visited[row][col+1] = true
 
 		if res == END {
 			return REACHED
@@ -143,7 +144,6 @@ func dfs(row, col int, visited [][]bool) int {
 		}
 
 		if validMove(res) {
-			visited[row][col+1] = true
 			echo := dfs(row, col+1, visited)
 			if echo == REACHED || echo == TIMEOUT {
 				return echo
