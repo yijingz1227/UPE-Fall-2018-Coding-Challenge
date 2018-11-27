@@ -20,7 +20,8 @@ Step 2: Do the `git init`, `git pull` ... using this GitHub repo
 Step 3: Once you have main.go, rest.go, maze.go in your folder, `go build *.go` will give you an executable named `main`. 
 
 Step 4: To run the executable, `./main`
-	Step 5: You should see a prompt on your command-line tool "Mission starts." 
+
+Step 5: You should see a prompt on your command-line tool "Mission starts." 
 
 # 1. Module explanation
 #### The file contains 3 .go files, main, rest, and maze
