@@ -29,6 +29,6 @@ Step 5: You should see a prompt on your command-line tool "Mission starts."
 
 **rest.go** contains all the functions that make HTTP requests
 
-**maze.go** contains the loop that calls DFS algorithm to solve the maze
+**maze.go** contains the loop that runs DFS algorithm to solve the maze
 
 
